@@ -26,7 +26,7 @@
     />
 
 
-    <v-btn class="bg-orange-darken-1 text-white text-caption" outlined to="/signin">Sign In</v-btn>
+    <v-btn class="bg-orange-darken-1 text-white text-caption" outlined to="./">Sign In</v-btn>
   </v-app-bar>
 </template>
 
