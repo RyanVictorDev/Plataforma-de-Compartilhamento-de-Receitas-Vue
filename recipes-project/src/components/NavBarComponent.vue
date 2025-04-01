@@ -3,15 +3,12 @@
     <img class="logo" src="../assets/logoRecipe.png" alt="">
     <p class="font-weight-bold">RecipeShare</p>
 
-    <!-- <v-spacer /> -->
     <div class="d-flex mx-auto ga-3">
       <v-btn class="text-caption" text to="/">Home</v-btn>
       <v-btn class="text-caption" text to="/recipes">Recipes</v-btn>
       <v-btn class="text-caption" text to="/recipesSubmit">Submit Recipe</v-btn>
       <v-btn class="text-caption" text to="/about">About</v-btn>
     </div>
-
-    <!-- <v-spacer /> -->
 
     <v-text-field
       class="search mr-5"
@@ -25,25 +22,55 @@
       density="comfortable"
     />
 
+    <v-btn v-if="!isAuthenticated" class="bg-orange-darken-1 text-white text-caption" outlined to="/login">
+      Sign In
+    </v-btn>
 
-    <v-btn class="bg-orange-darken-1 text-white text-caption" outlined to="./">Sign In</v-btn>
+    <v-menu v-else>
+      <template v-slot:activator="{ props }">
+        <v-btn v-bind="props" class="bg-orange-darken-1 text-white text-caption" rounded>
+          <v-icon left>mdi-account</v-icon>
+          Profile
+        </v-btn>
+      </template>
+      <v-list>
+        <v-list-item to="/profile">
+          <v-list-item-title>Meu Perfil</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="logout">
+          <v-list-item-title>Logout</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
   </v-app-bar>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
-  const search = ref('')
+const search = ref('')
+const token = ref<string | null>(null)
+
+const isAuthenticated = computed(() => !!token.value)
+
+onMounted(() => {
+  token.value = localStorage.getItem('authToken')
+})
+
+const logout = () => {
+  localStorage.removeItem('authToken')
+  token.value = null
+  window.location.reload()
+}
 </script>
 
 <style lang="css" scoped>
-  .logo{
-    max-width: 3rem;
-    max-height: auto;
-  }
+.logo {
+  max-width: 3rem;
+  max-height: auto;
+}
 
-  .search{
-    max-width: 25%;
-
-  }
+.search {
+  max-width: 25%;
+}
 </style>
