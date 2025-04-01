@@ -17,6 +17,7 @@
         color="white text-red text-body-2"
         icon="mdi-heart-outline"
         variant="plain"
+        @click="like"
       />
 
       <v-btn
@@ -24,11 +25,11 @@
         color="white text-red text-body-2"
         icon="mdi-heart"
         variant="text"
+        @click="unliked"
       />
     </div>
 
     <p class="text-body-1 text-left font-weight-bold mb-2">{{ title }}</p>
-
     <p class="mb-4 text-left text-body-2">{{ description }}</p>
 
     <v-divider class="mb-4" />
@@ -75,40 +76,70 @@ const tagColor = computed(() => {
 });
 
 const isLiked = ref(false);
-const likesQtd = ref(0);
-
-const getFavorites = async (id: string) => {
-  try {
-    const response = await api.get(`favorite/user/${id}`);
-    console.log("AQUI AAAAAAAAAAAAAA", response);
-
-    if (Array.isArray(response.data) && response.data.length > 0) {
-      const favoriteRecipes = response.data.map(entry => entry.recipe);
-
-      for (const recipe of favoriteRecipes) {
-        if (recipe.id == props.id) {
-          isLiked.value = true;
-          likesQtd.value += 1;
-        }
-      }
-      console.log("isLiked:", isLiked.value, "likesQtd:", likesQtd.value);
-    } else {
-      console.error("Nenhum favorito encontrado:", response.data);
-    }
-  } catch (error) {
-    console.error("Erro ao buscar favoritos:", error);
-  }
-};
+const likeId = ref('');
 
 onMounted(() => {
   const userId = localStorage.getItem('userId');
   if (userId) {
     getFavorites(userId);
-    console.log(userId)
   } else {
-    console.error('User is null');
+    console.error('User ID não encontrado');
   }
 });
+
+const getFavorites = async (userId: string) => {
+  try {
+    const response = await api.get(`favorite/user/${userId}`);
+    console.log("AQUI A RESPOSTA", response);
+
+    if (Array.isArray(response.data) && response.data.length > 0) {
+      const favorite = response.data.find(entry => entry.recipe.id == props.id);
+
+      if (favorite) {
+        isLiked.value = true;
+        likeId.value = favorite.id;
+      } else {
+        isLiked.value = false;
+        likeId.value = '';
+      }
+    } else {
+      isLiked.value = false;
+      likeId.value = '';
+    }
+
+    console.log("isLiked:", isLiked.value, "likeId:", likeId.value);
+  } catch (error) {
+    console.error("Erro ao buscar favoritos:", error);
+  }
+};
+
+const like = async () => {
+  try {
+    const response = await api.post('/favorite', {
+      userId: localStorage.getItem('userId'),
+      recipeId: props.id
+    });
+
+    console.log("Favorito adicionado", response);
+    isLiked.value = true;
+
+    getFavorites(localStorage.getItem('userId')!);
+  } catch (error) {
+    console.error("Erro ao curtir:", error);
+  }
+};
+
+const unliked = async () => {
+  try {
+    await api.delete(`/favorite/${likeId.value}`);
+    console.log("Favorito removido");
+
+    isLiked.value = false;
+    likeId.value = '';
+  } catch (error) {
+    console.error("Erro ao descurtir:", error);
+  }
+};
 </script>
 
 <style>
