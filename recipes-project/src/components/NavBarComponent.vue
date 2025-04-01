@@ -1,6 +1,6 @@
 <template>
   <v-app-bar class="d-flex px-5" :elevation="2" theme="white" color="white">
-    <img class="logo" src="../assets/logoRecipe.png" alt="">
+    <img class="logo" src="../assets/logo.png" alt="">
     <p class="font-weight-bold">RecipeShare</p>
 
     <div class="d-flex mx-auto ga-3">

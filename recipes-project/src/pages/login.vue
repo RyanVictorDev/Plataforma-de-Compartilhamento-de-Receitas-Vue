@@ -1,8 +1,8 @@
 <template>
   <v-main class="bg-white fill-height">
     <v-container v-if="!haveAAccount" class="mx-auto fill-height d-flex flex-column">
-      <v-sheet class="form mx-auto my-auto pa-6 bg-grey-lighten-3 rounded-lg">
-        <v-img class="mx-auto mb-6" src="../assets/logoRecipe.png" width="100" />
+      <v-sheet class="form mx-auto my-auto pa-6 bg-grey-lighten-3 rounded-lg" :elevation="10">
+        <v-img class="mx-auto mb-6" src="../assets/logo.png" width="100" />
         <v-form fast-fail @submit.prevent @submit="auth(email, password)">
           <v-text-field
             v-model="email"
@@ -20,13 +20,13 @@
           <v-btn class="mt-2" color="yellow" type="submit" block>Login</v-btn>
         </v-form>
 
-        <p class="mt-3" @click="createAAccount">Não possui uma conta? Crie uma</p>
+        <p class="mt-3 text-blue-darken-3" @click="createAAccount">Não possui uma conta? Crie uma</p>
       </v-sheet>
     </v-container>
 
     <v-container v-else class="mx-auto fill-height d-flex flex-column">
-      <v-sheet class="form mx-auto my-auto pa-6 bg-grey-lighten-3 rounded-lg">
-        <v-img class="mx-auto mb-6" src="../assets/logoRecipe.png" width="100" />
+      <v-sheet class="form mx-auto my-auto pa-6 bg-grey-lighten-3 rounded-lg" :elevation="10">
+        <v-img class="mx-auto mb-6" src="../assets/logo.png" width="100" />
         <v-form fast-fail @submit.prevent @submit="register(name, email, password)">
           <v-text-field
             v-model="name"
@@ -50,7 +50,7 @@
           <v-btn class="mt-2" color="yellow" type="submit" block>Criar conta</v-btn>
         </v-form>
 
-        <p class="mt-3" @click="createAAccount">Já possuo uma conta</p>
+        <p class="mt-3 text-blue-darken-3" @click="createAAccount">Já possuo uma conta</p>
       </v-sheet>
     </v-container>
   </v-main>

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <NavBarComponent v-if="route.path !== '/login'" />
-    <v-main>
+    <v-main class="bg-white">
       <router-view />
     </v-main>
   </v-app>
