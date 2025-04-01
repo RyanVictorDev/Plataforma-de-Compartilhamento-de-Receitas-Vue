@@ -4,6 +4,7 @@
       <v-row class="d-flex">
         <v-col v-for="recipe in recipes" :key="recipe.id" cols="12" sm="6" md="4" lg="3">
           <recipe-component
+            :id="String(recipe.id)"
             :title="recipe.title"
             :description="recipe.description"
             :tag="recipe.tag"

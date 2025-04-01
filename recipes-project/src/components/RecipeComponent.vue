@@ -7,20 +7,23 @@
     rounded="lg"
   >
     <div class="d-flex justify-space-between align-center mb-3">
-      <v-chip
-        class="tag align-left text-caption"
-        :color="tagColor"
-        label
-      >
+      <v-chip class="tag align-left text-caption" :color="tagColor" label>
         <v-icon icon="mdi-label" start></v-icon>
         {{ tag }}
       </v-chip>
 
-      <v-icon
-        class="my-auto"
-        color="red"
+      <v-btn
+        v-if="!isLiked"
+        color="white text-red text-body-2"
         icon="mdi-heart-outline"
-        size="20"
+        variant="plain"
+      />
+
+      <v-btn
+        v-else
+        color="white text-red text-body-2"
+        icon="mdi-heart"
+        variant="text"
       />
     </div>
 
@@ -37,9 +40,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+import { api } from '@/boot/axios';
 
 const props = defineProps({
+  id: {
+    type: String,
+    required: true
+  },
   title: {
     type: String,
     required: true
@@ -51,7 +59,7 @@ const props = defineProps({
   tag: {
     type: String,
     required: true
-  },
+  }
 });
 
 const tagColor = computed(() => {
@@ -60,10 +68,46 @@ const tagColor = computed(() => {
     LUNCH: 'blue',
     DINNER: 'orange-darken-2',
     VEGAN: 'green',
-    VEGETARIAN: 'light-green',
+    VEGETARIAN: 'light-green'
   };
 
   return colors[props.tag.toUpperCase()] || 'grey';
+});
+
+const isLiked = ref(false);
+const likesQtd = ref(0);
+
+const getFavorites = async (id: string) => {
+  try {
+    const response = await api.get(`favorite/user/${id}`);
+    console.log("AQUI AAAAAAAAAAAAAA", response);
+
+    if (Array.isArray(response.data) && response.data.length > 0) {
+      const favoriteRecipes = response.data.map(entry => entry.recipe);
+
+      for (const recipe of favoriteRecipes) {
+        if (recipe.id == props.id) {
+          isLiked.value = true;
+          likesQtd.value += 1;
+        }
+      }
+      console.log("isLiked:", isLiked.value, "likesQtd:", likesQtd.value);
+    } else {
+      console.error("Nenhum favorito encontrado:", response.data);
+    }
+  } catch (error) {
+    console.error("Erro ao buscar favoritos:", error);
+  }
+};
+
+onMounted(() => {
+  const userId = localStorage.getItem('userId');
+  if (userId) {
+    getFavorites(userId);
+    console.log(userId)
+  } else {
+    console.error('User is null');
+  }
 });
 </script>
 

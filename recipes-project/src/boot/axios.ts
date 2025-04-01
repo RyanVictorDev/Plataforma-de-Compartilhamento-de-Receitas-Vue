@@ -21,6 +21,8 @@ const authenticate = async (email: string, password: string) => {
     const token = response.data.token;
     if (token) {
       localStorage.setItem('authToken', token);
+      localStorage.setItem('userId', response.data.id);
+      localStorage.setItem('userName', response.data.name);
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
   } catch (error) {
