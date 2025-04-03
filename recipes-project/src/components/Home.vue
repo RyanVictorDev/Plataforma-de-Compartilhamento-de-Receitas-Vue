@@ -7,7 +7,7 @@
           <p class="text-body-1">Discover amazing recipes from around the world or share your own with our community of food enthusiasts</p>
 
           <div class="d-flex ga-8">
-            <v-btn size="large" class="text-orange" color="white">Explore Recipes</v-btn>
+            <v-btn size="large" class="text-orange" color="white" to="/recipes">Explore Recipes</v-btn>
             <v-btn size="large" variant="outlined" to="/recipesSubmit">Share a Recipe</v-btn>
           </div>
         </div>

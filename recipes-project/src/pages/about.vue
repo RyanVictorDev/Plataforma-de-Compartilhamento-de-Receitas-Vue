@@ -7,7 +7,7 @@
         compartilhar e salvar suas receitas favoritas. Nossa missão é conectar pessoas através do sabor e
         facilitar o acesso a pratos incríveis de diversas culturas.
       </v-card-text>
-      <v-divider class="my-3"></v-divider>
+      <v-divider class="my-3" />
       <v-card-text class="text-body-1">
         Como funciona?
         <ul class="text-left mt-2">
