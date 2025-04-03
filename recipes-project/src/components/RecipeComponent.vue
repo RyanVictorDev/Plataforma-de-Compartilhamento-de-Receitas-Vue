@@ -1,9 +1,10 @@
 <template>
   <v-sheet
-    class="d-flex flex-column align-left pa-3 text-center mx-auto"
+    class="d-flex flex-column justify-space-between align-left pa-3 text-center mx-auto"
     color="grey-lighten-5"
     elevation="3"
     width="255"
+    height="250"
     rounded="lg"
   >
     <div class="d-flex justify-space-between align-center mb-3">
@@ -29,8 +30,10 @@
       />
     </div>
 
-    <p class="text-body-1 text-left font-weight-bold mb-2">{{ title }}</p>
-    <p class="mb-4 text-left text-body-2">{{ description }}</p>
+    <div>
+      <p class="text-body-1 text-left font-weight-bold mb-2">{{ title }}</p>
+      <p class="mb-4 text-left text-body-2 description">{{ description }}</p>
+    </div>
 
     <v-divider class="mb-4" />
 
@@ -43,6 +46,9 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { api } from '@/boot/axios';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 const props = defineProps({
   id: {
@@ -126,6 +132,7 @@ const like = async () => {
     getFavorites(localStorage.getItem('userId')!);
   } catch (error) {
     console.error("Erro ao curtir:", error);
+    router.push('/login');
   }
 };
 
@@ -146,4 +153,15 @@ const unliked = async () => {
 .tag {
   max-width: fit-content;
 }
+
+.description {
+  display: -webkit-box;
+  -webkit-line-clamp: 5; /* Número máximo de linhas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 5rem; /* Ajuste conforme necessário */
+}
+
+
 </style>
