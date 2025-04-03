@@ -8,7 +8,7 @@
 
           <div class="d-flex ga-8">
             <v-btn size="large" class="text-orange" color="white">Explore Recipes</v-btn>
-            <v-btn size="large" variant="outlined">Share a Recipe</v-btn>
+            <v-btn size="large" variant="outlined" to="/recipesSubmit">Share a Recipe</v-btn>
           </div>
         </div>
       </div>

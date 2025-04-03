@@ -28,6 +28,12 @@
 
     <v-menu v-else>
       <template v-slot:activator="{ props }">
+        <v-btn
+          color="white text-red text-body-2"
+          icon="mdi-heart-outline"
+          variant="plain"
+          to="/login"
+        />
         <v-btn v-bind="props" class="bg-orange-darken-1 text-white text-caption" rounded>
           <v-icon left>mdi-account</v-icon>
           Profile
