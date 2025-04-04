@@ -65,6 +65,7 @@ onMounted(() => {
 
 const logout = () => {
   localStorage.removeItem('authToken')
+  localStorage.removeItem('userId')
   token.value = null
   window.location.reload()
 }

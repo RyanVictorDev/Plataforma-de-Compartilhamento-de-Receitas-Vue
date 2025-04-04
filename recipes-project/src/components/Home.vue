@@ -45,14 +45,15 @@ onMounted(() => {
 });
 
 const getRecipes = () => {
-  api.get('recipe')
+  api.get('recipe', { params: { page: 0 } })
     .then(response => {
-      recipes.value = response.data;
+      recipes.value = response.data.content; 
     })
     .catch(error => {
       console.log(error);
     });
 };
+
 </script>
 
 <style scoped>

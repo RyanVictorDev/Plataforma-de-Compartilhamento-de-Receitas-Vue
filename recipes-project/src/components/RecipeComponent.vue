@@ -114,9 +114,7 @@ const getFavorites = async (userId: string) => {
     }
 
     console.log("isLiked:", isLiked.value, "likeId:", likeId.value);
-  } catch (error) {
-    console.error("Erro ao buscar favoritos:", error);
-  }
+  } catch (error) {}
 };
 
 const like = async () => {
@@ -156,11 +154,11 @@ const unliked = async () => {
 
 .description {
   display: -webkit-box;
-  -webkit-line-clamp: 5; /* Número máximo de linhas */
+  -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-height: 5rem; /* Ajuste conforme necessário */
+  max-height: 5rem;
 }
 
 
