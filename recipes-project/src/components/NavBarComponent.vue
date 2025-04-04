@@ -10,7 +10,7 @@
       <v-btn class="text-caption" text to="/about">About</v-btn>
     </div>
 
-    <v-text-field
+    <!-- <v-text-field
       class="search mr-5"
       v-model="search"
       label="Search recipes..."
@@ -20,7 +20,7 @@
       single-line
       rounded="pill"
       density="comfortable"
-    />
+    /> -->
 
     <v-btn v-if="!isAuthenticated" class="bg-orange-darken-1 text-white text-caption" outlined to="/login">
       Sign In
@@ -32,7 +32,7 @@
           color="white text-red text-body-2"
           icon="mdi-heart-outline"
           variant="plain"
-          to="/login"
+          to="/favorites"
         />
         <v-btn v-bind="props" class="bg-orange-darken-1 text-white text-caption" rounded>
           <v-icon left>mdi-account</v-icon>
@@ -77,7 +77,7 @@ const logout = () => {
   max-height: auto;
 }
 
-.search {
+/* .search {
   max-width: 25%;
-}
+} */
 </style>

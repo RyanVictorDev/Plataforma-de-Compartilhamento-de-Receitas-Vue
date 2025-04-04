@@ -96,7 +96,6 @@ onMounted(() => {
 const getFavorites = async (userId: string) => {
   try {
     const response = await api.get(`favorite/user/${userId}`);
-    console.log("AQUI A RESPOSTA", response);
 
     if (Array.isArray(response.data) && response.data.length > 0) {
       const favorite = response.data.find(entry => entry.recipe.id == props.id);
@@ -112,8 +111,6 @@ const getFavorites = async (userId: string) => {
       isLiked.value = false;
       likeId.value = '';
     }
-
-    console.log("isLiked:", isLiked.value, "likeId:", likeId.value);
   } catch (error) {}
 };
 
