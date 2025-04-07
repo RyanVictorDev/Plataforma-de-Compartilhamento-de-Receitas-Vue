@@ -3,10 +3,12 @@
     <div class="d-flex ga-3">
       <v-btn
         v-for="icon in icons"
-        :key="icon"
-        :icon="icon"
+        :key="icon.icon"
+        :icon="icon.icon"
         density="comfortable"
         variant="text"
+        :href="icon.href"
+        target="_blank"
       />
     </div>
 
@@ -26,8 +28,17 @@
 
 <script lang="ts" setup>
   const icons = [
-    'mdi-github',
-    'mdi-linkedin',
-    'mdi-instagram',
+    {
+      icon: 'mdi-github',
+      href: 'https://github.com/RyanVictorDev',
+    },
+    {
+      icon: 'mdi-linkedin',
+      href: 'https://linkedin.com/in/ryan-victor-dev',
+    },
+    // {
+    //   icon: 'mdi-instagram',
+    //   href: 'https://twitter.com/RyanVictorDev',
+    // }
   ]
 </script>

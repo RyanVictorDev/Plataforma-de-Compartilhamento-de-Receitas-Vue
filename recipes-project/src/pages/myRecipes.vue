@@ -7,11 +7,12 @@
           :title="recipe.title"
           :description="recipe.description"
           :tag="recipe.tag"
+          :userId="String(recipe.user.id)"
         />
       </v-col>
     </v-row>
 
-    <v-row class="justify-end mt-4">
+    <!-- <v-row class="justify-end mt-4">
       <v-col class="d-flex justify-end ga-2" cols="12" sm="6" md="4" lg="3">
         <v-btn class="bg-orange-darken-4" @click="previousPage" :disabled="page === 0">
           <v-icon icon="mdi-arrow-left" start />Anterior
@@ -20,7 +21,7 @@
           Próximo <v-icon icon="mdi-arrow-right" end />
         </v-btn>
       </v-col>
-    </v-row>
+    </v-row> -->
   </v-responsive>
 </template>
 
@@ -60,6 +61,9 @@ interface Recipe {
   title: string;
   description: string;
   tag: string;
+  user: {
+    id: number;
+  };
 }
 
 const recipes = ref<Recipe[]>([]);

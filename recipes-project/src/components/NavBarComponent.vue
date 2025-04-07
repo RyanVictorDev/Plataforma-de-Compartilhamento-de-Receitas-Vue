@@ -10,18 +10,6 @@
       <v-btn class="text-caption" text to="/about">About</v-btn>
     </div>
 
-    <!-- <v-text-field
-      class="search mr-5"
-      v-model="search"
-      label="Search recipes..."
-      prepend-inner-icon="mdi-magnify"
-      variant="outlined"
-      hide-details
-      single-line
-      rounded="pill"
-      density="comfortable"
-    /> -->
-
     <v-btn v-if="!isAuthenticated" class="bg-orange-darken-1 text-white text-caption" outlined to="/login">
       Sign In
     </v-btn>
@@ -36,15 +24,18 @@
         />
         <v-btn v-bind="props" class="bg-orange-darken-1 text-white text-caption" rounded>
           <v-icon left>mdi-account</v-icon>
-          Profile
+          Perfil
         </v-btn>
       </template>
-      <v-list>
+      <v-list class="bg-white">
         <v-list-item to="/profile">
-          <v-list-item-title>Meu Perfil</v-list-item-title>
+          <v-list-item-title><v-icon left>mdi-account</v-icon> Meu Perfil</v-list-item-title>
+        </v-list-item>
+        <v-list-item to="/myRecipes">
+          <v-list-item-title><v-icon left>mdi-chef-hat</v-icon> Minhas Receitas</v-list-item-title>
         </v-list-item>
         <v-list-item @click="logout">
-          <v-list-item-title>Logout</v-list-item-title>
+          <v-list-item-title><v-icon left>mdi-logout</v-icon> Logout</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
@@ -54,7 +45,6 @@
 <script lang="ts" setup>
 import { ref, computed, onMounted } from 'vue'
 
-const search = ref('')
 const token = ref<string | null>(null)
 
 const isAuthenticated = computed(() => !!token.value)
@@ -76,8 +66,4 @@ const logout = () => {
   max-width: 3rem;
   max-height: auto;
 }
-
-/* .search {
-  max-width: 25%;
-} */
 </style>

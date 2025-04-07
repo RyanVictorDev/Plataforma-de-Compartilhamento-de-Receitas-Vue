@@ -7,27 +7,74 @@
     height="250"
     rounded="lg"
   >
+    <v-snackbar v-model="snackbar.show" :color="snackbar.color" timeout="3000">
+      {{ snackbar.message }}
+    </v-snackbar>
+
     <div class="d-flex justify-space-between align-center mb-3">
       <v-chip class="tag align-left text-caption" :color="tagColor" label>
         <v-icon icon="mdi-label" start></v-icon>
         {{ tag }}
       </v-chip>
 
-      <v-btn
-        v-if="!isLiked"
-        color="white text-red text-body-2"
-        icon="mdi-heart-outline"
-        variant="plain"
-        @click="like"
-      />
+      <div v-if="userId !== userIdLocal" class="d-flex align-center">
+        <v-btn
+          v-if="!isLiked"
+          color="white text-red text-body-2"
+          icon="mdi-heart-outline"
+          variant="plain"
+          @click="like"
+        />
 
-      <v-btn
-        v-else
-        color="white text-red text-body-2"
-        icon="mdi-heart"
-        variant="text"
-        @click="unliked"
-      />
+        <v-btn
+          v-if="isLiked"
+          color="white text-red text-body-2"
+          icon="mdi-heart"
+          variant="text"
+          @click="unliked"
+        />
+      </div>
+
+      <div v-else>
+        <v-btn
+          color="white text-green text-body-2"
+          icon="mdi-pencil-outline"
+          variant="plain"
+        />
+
+        <v-dialog max-width="500">
+          <template v-slot:activator="{ props: activatorProps }">
+            <v-btn
+              v-bind="activatorProps"
+              color="white text-red text-body-2"
+              icon="mdi-trash-can-outline"
+              variant="plain"
+            />
+          </template>
+
+          <template v-slot:default="{ isActive }">
+            <v-card class="bg-white text-black" title="Deseja deletar esta receita?">
+              <v-card-text>
+                Você tem certeza que deseja deletar esta receita? Esta ação não pode ser desfeita.
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+
+                <v-btn
+                  text="Não, cancelar"
+                  @click="isActive.value = false"
+                />
+
+                <v-btn
+                  text="Sim, deletar"
+                  @click="isActive.value = false, deleteRecipe()"
+                />
+              </v-card-actions>
+            </v-card>
+          </template>
+        </v-dialog>
+      </div>
     </div>
 
     <div>
@@ -48,12 +95,23 @@ import { computed, onMounted, ref } from 'vue';
 import { api } from '@/boot/axios';
 import { useRouter } from 'vue-router';
 
+const snackbar = ref({
+  show: false,
+  message: '',
+  color: 'success',
+});
+
 const router = useRouter()
 
 const props = defineProps({
   id: {
     type: String,
     required: true
+  },
+  userId: {
+    type: String,
+    required: false,
+    default: ''
   },
   title: {
     type: String,
@@ -81,13 +139,14 @@ const tagColor = computed(() => {
   return colors[props.tag.toUpperCase()] || 'grey';
 });
 
+const userIdLocal = ref();
 const isLiked = ref(false);
 const likeId = ref('');
 
 onMounted(() => {
-  const userId = localStorage.getItem('userId');
-  if (userId) {
-    getFavorites(userId);
+  userIdLocal.value = localStorage.getItem('userId');
+  if (userIdLocal.value) {
+    getFavorites(userIdLocal.value);
   } else {
     console.error('User ID não encontrado');
   }
@@ -111,7 +170,7 @@ const getFavorites = async (userId: string) => {
       isLiked.value = false;
       likeId.value = '';
     }
-  } catch (error) {}
+  } catch (error) { console.error("Erro ao buscar favoritos:", error); }
 };
 
 const like = async () => {
@@ -140,6 +199,25 @@ const unliked = async () => {
     likeId.value = '';
   } catch (error) {
     console.error("Erro ao descurtir:", error);
+  }
+};
+
+const deleteRecipe = async () => {
+  try {
+    await api.delete(`/recipe/${props.id}`);
+    console.log("Receita deletada com sucesso");
+
+    snackbar.value = {
+      show: true,
+      message: "Receita deletada com sucesso!",
+      color: "success",
+    };
+
+    setTimeout(() => {
+      router.go(0);;
+    }, 1000);
+  } catch (error) {
+    console.error("Erro ao deletar receita:", error);
   }
 };
 </script>

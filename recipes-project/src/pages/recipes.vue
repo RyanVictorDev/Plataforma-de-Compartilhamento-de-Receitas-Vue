@@ -38,6 +38,7 @@
       <v-col v-for="recipe in recipes" :key="recipe.id" cols="12" sm="6" md="4" lg="3">
         <recipe-component
           :id="String(recipe.id)"
+          :user-id="String(recipe.user.id)"
           :title="recipe.title"
           :description="recipe.description"
           :tag="recipe.tag"
@@ -112,6 +113,9 @@ interface Recipe {
   title: string;
   description: string;
   tag: string;
+  user: {
+    id: number;
+  };
 }
 
 const recipes = ref<Recipe[]>([]);
@@ -120,6 +124,7 @@ const getRecipes = () => {
   api.get('recipe', { params: { search: search.value, page: page.value, tag: actualTag.value } })
     .then(response => {
       recipes.value = response.data.content;
+      console.log("AQUI PORRA", response.data.content);
     })
     .catch(error => {
       console.log(error);
