@@ -25,5 +25,7 @@ declare module 'vue-router/auto-routes' {
     '/myRecipes': RouteRecordInfo<'/myRecipes', '/myRecipes', Record<never, never>, Record<never, never>>,
     '/recipes': RouteRecordInfo<'/recipes', '/recipes', Record<never, never>, Record<never, never>>,
     '/recipesSubmit': RouteRecordInfo<'/recipesSubmit', '/recipesSubmit', Record<never, never>, Record<never, never>>,
+    '/recipeUpdate/': RouteRecordInfo<'/recipeUpdate/', '/recipeUpdate', Record<never, never>, Record<never, never>>,
+    '/recipeUpdate/[id]': RouteRecordInfo<'/recipeUpdate/[id]', '/recipeUpdate/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
   }
 }

@@ -1,11 +1,16 @@
 <template>
   <div class="d-flex flex-column bgImage">
-    <SubmitRecipeFormComponent />
+    <UpdateRecipeFormComponent :id="id" />
   </div>
 </template>
 
-<script setup lang="ts">
-import SubmitRecipeFormComponent from '@/components/SubmitRecipeFormComponent.vue';
+<script lang="ts" setup>
+import UpdateRecipeFormComponent from '@/components/UpdateRecipeFormComponent.vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
+const id = route.params.id as string;
 </script>
 
 <style scoped>

@@ -40,6 +40,7 @@
           color="white text-green text-body-2"
           icon="mdi-pencil-outline"
           variant="plain"
+          @click="router.push(`/recipeUpdate/${id}`)"
         />
 
         <v-dialog max-width="500">

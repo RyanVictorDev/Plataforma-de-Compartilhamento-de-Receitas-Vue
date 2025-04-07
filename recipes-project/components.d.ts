@@ -15,5 +15,6 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SubmitRecipeFormComponent: typeof import('./src/components/SubmitRecipeFormComponent.vue')['default']
+    UpdateRecipeFormComponent: typeof import('./src/components/UpdateRecipeFormComponent.vue')['default']
   }
 }

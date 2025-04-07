@@ -1,11 +1,8 @@
 <template>
-  <div class="d-flex flex-column bgImage">
-    <SubmitRecipeFormComponent />
-  </div>
+  <p class="text-center my-auto">nao era pra voce estar aqui</p>
 </template>
 
-<script setup lang="ts">
-import SubmitRecipeFormComponent from '@/components/SubmitRecipeFormComponent.vue';
+<script lang="ts" setup>
 </script>
 
 <style scoped>
