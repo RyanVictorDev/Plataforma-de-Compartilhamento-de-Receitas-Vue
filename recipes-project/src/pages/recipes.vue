@@ -23,6 +23,8 @@
           v-model="search"
           label="Search recipes..."
           prepend-inner-icon="mdi-magnify"
+          :append-inner-icon="search ? 'mdi-close-circle' : ''"
+          @click:append-inner="clearSearch"
           variant="outlined"
           hide-details
           single-line
@@ -60,9 +62,26 @@
 import { onMounted, ref } from 'vue';
 import { api } from '@/boot/axios';
 import RecipeComponent from '@/components/RecipeComponent.vue';
+import { watch } from 'vue';
+import { debounce } from 'lodash';
 
 const page = ref(0);
 const search = ref('');
+
+const debouncedSearch = debounce(() => {
+  page.value = 0;
+  getRecipes();
+}, 500);
+
+watch(search, () => {
+  debouncedSearch();
+});
+
+const clearSearch = () => {
+  search.value = '';
+  page.value = 0;
+  getRecipes();
+};
 
 const nextPage = () => {
   page.value += 1;
@@ -98,7 +117,7 @@ interface Recipe {
 const recipes = ref<Recipe[]>([]);
 
 const getRecipes = () => {
-  api.get('recipe', { params: { page: page.value, tag: actualTag.value } })
+  api.get('recipe', { params: { search: search.value, page: page.value, tag: actualTag.value } })
     .then(response => {
       recipes.value = response.data.content;
     })
