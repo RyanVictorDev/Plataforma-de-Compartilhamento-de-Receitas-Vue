@@ -85,7 +85,7 @@
 
     <v-divider class="mb-4" />
 
-    <v-btn color="grey-lighten-4" class="text-yellow-darken-4">
+    <v-btn color="grey-lighten-4" class="text-yellow-darken-4" @click="router.push(`/recipes/${id}`)">
       Ver receita
     </v-btn>
   </v-sheet>

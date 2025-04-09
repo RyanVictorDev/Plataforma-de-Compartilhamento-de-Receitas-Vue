@@ -12,6 +12,7 @@ declare module 'vue' {
     Home: typeof import('./src/components/Home.vue')['default']
     NavBarComponent: typeof import('./src/components/NavBarComponent.vue')['default']
     RecipeComponent: typeof import('./src/components/RecipeComponent.vue')['default']
+    RecipePageComponent: typeof import('./src/components/RecipePageComponent.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SubmitRecipeFormComponent: typeof import('./src/components/SubmitRecipeFormComponent.vue')['default']
