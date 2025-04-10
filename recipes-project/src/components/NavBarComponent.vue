@@ -4,14 +4,14 @@
     <p class="font-weight-bold">RecipeShare</p>
 
     <div class="d-flex mx-auto ga-3">
-      <v-btn class="text-caption" text to="/">Home</v-btn>
-      <v-btn class="text-caption" text to="/recipes">Recipes</v-btn>
-      <v-btn class="text-caption" text to="/recipesSubmit">Submit Recipe</v-btn>
-      <v-btn class="text-caption" text to="/about">About</v-btn>
+      <v-btn class="text-caption" text to="/">Início</v-btn>
+      <v-btn class="text-caption" text to="/recipes">Receitas</v-btn>
+      <v-btn class="text-caption" text to="/recipesSubmit">Enviar Receita</v-btn>
+      <v-btn class="text-caption" text to="/about">Sobre</v-btn>
     </div>
 
     <v-btn v-if="!isAuthenticated" class="bg-orange-darken-1 text-white text-caption" outlined to="/login">
-      Sign In
+      Entrar
     </v-btn>
 
     <v-menu v-else>
@@ -35,7 +35,7 @@
           <v-list-item-title><v-icon left>mdi-chef-hat</v-icon> Minhas Receitas</v-list-item-title>
         </v-list-item>
         <v-list-item @click="logout">
-          <v-list-item-title><v-icon left>mdi-logout</v-icon> Logout</v-list-item-title>
+          <v-list-item-title><v-icon left>mdi-logout</v-icon> Sair</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>

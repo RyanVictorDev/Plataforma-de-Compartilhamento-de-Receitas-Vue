@@ -14,7 +14,7 @@
     <div class="d-flex justify-space-between align-center mb-3">
       <v-chip class="tag align-left text-caption" :color="tagColor" label>
         <v-icon icon="mdi-label" start></v-icon>
-        {{ tag }}
+        {{ translatedTag }}
       </v-chip>
 
       <div v-if="userId !== userIdLocal" class="d-flex align-center">
@@ -138,6 +138,23 @@ const tagColor = computed(() => {
   };
 
   return colors[props.tag.toUpperCase()] || 'grey';
+});
+
+const translatedTag = computed(() => {
+  switch (props.tag.toUpperCase()) {
+    case 'BREAKFAST':
+      return 'Café da Manhã';
+    case 'LUNCH':
+      return 'Almoço';
+    case 'DINNER':
+      return 'Jantar';
+    case 'VEGAN':
+      return 'Vegano';
+    case 'VEGETARIAN':
+      return 'Vegetariano';
+    default:
+      return 'Outro';
+  }
 });
 
 const userIdLocal = ref();

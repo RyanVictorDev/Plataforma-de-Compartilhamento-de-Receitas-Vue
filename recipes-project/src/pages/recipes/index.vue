@@ -13,7 +13,7 @@
           @click="addTag(tag)"
         >
           <v-icon icon="mdi-label" start />
-          {{ tag }}
+          {{ translateTag(tag) }}
         </v-chip>
       </v-col>
 
@@ -142,6 +142,19 @@ const tags = ref([
   'VEGAN',
   'VEGETARIAN'
 ]);
+
+const translateTag = (tag: string): string => {
+  const translations: Record<string, string> = {
+    BREAKFAST: 'Café da manhã',
+    LUNCH: 'Almoço',
+    DINNER: 'Jantar',
+    VEGAN: 'Vegano',
+    VEGETARIAN: 'Vegetariano'
+  };
+
+  return translations[tag.toUpperCase()] || tag;
+};
+
 
 const getTagColor = (tag: string): string => {
   const colors: Record<string, string> = {

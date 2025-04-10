@@ -3,12 +3,12 @@
     <v-responsive class="d-flex flex-wrap align-center fill-height mx-auto">
       <div class="banner mb-5">
         <div class="bannerContent d-flex flex-column text-white ml-5 ga-2 my-auto">
-          <p class="text-h4 font-weight-bold">Share Your Culinary Creations</p>
-          <p class="text-body-1">Discover amazing recipes from around the world or share your own with our community of food enthusiasts</p>
+          <p class="text-h4 font-weight-bold">Compartilhe suas criações culinárias</p>
+          <p class="text-body-1">Descubra receitas incríveis de todo o mundo ou compartilhe as suas para todos os amantes de comida</p>
 
           <div class="d-flex ga-8">
-            <v-btn size="large" class="text-orange" color="white" to="/recipes">Explore Recipes</v-btn>
-            <v-btn size="large" variant="outlined" to="/recipesSubmit">Share a Recipe</v-btn>
+            <v-btn size="large" class="text-orange" color="white" to="/recipes">Explorar Receitas</v-btn>
+            <v-btn size="large" variant="outlined" to="/recipesSubmit">Enviar uma Receita</v-btn>
           </div>
         </div>
       </div>
