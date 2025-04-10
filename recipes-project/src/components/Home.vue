@@ -79,7 +79,7 @@ const getRecipes = () => {
 .banner {
   width: 100%;
   height: 400px;
-  background-image: url('@/assets/image.png');
+  background-image: url('@/assets/imageBanner.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
