@@ -7,6 +7,13 @@ const api = axios.create({
   }
 });
 
+// const api = axios.create({
+//   baseURL: 'http://localhost:8040',
+//   headers: {
+//     "Content-Type": "application/json"
+//   }
+// });
+
 const token = localStorage.getItem('authToken');
 if (token) {
   api.defaults.headers.common['Authorization'] = `Bearer ${token}`;

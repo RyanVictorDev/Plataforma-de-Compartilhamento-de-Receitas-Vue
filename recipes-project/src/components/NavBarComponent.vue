@@ -6,7 +6,7 @@
     <div class="d-flex mx-auto ga-3">
       <v-btn class="text-caption" text to="/">Início</v-btn>
       <v-btn class="text-caption" text to="/recipes">Receitas</v-btn>
-      <v-btn class="text-caption" text to="/recipesSubmit">Enviar Receita</v-btn>
+      <v-btn v-if="isAuthenticated" class="text-caption" text to="/recipesSubmit">Enviar Receita</v-btn>
       <v-btn class="text-caption" text to="/about">Sobre</v-btn>
     </div>
 

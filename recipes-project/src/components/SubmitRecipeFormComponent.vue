@@ -150,7 +150,4 @@ const createRecipe = async () => {
 .form {
   width: 80%;
 }
-
-.btn{
-}
 </style>

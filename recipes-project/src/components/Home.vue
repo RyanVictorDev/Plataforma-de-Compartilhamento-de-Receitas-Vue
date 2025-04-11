@@ -10,7 +10,7 @@
 
           <div class="d-flex ga-8">
             <v-btn size="large" class="text-orange" color="white" to="/recipes">Explorar Receitas</v-btn>
-            <v-btn size="large" variant="outlined" to="/recipesSubmit">Enviar uma Receita</v-btn>
+            <v-btn size="large" variant="outlined" @click="ShareRecipe">Enviar uma Receita</v-btn>
           </div>
         </div>
       </div>
@@ -43,9 +43,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { api } from '@/boot/axios';
 import RecipeComponent from './RecipeComponent.vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 interface Recipe {
   id: number;
@@ -58,9 +61,13 @@ interface Recipe {
 }
 
 const recipes = ref<Recipe[]>([]);
+const token = ref<string | null>(null)
+const isAuthenticated = computed(() => !!token.value)
 
 onMounted(() => {
   getRecipes();
+
+  token.value = localStorage.getItem('authToken')
 });
 
 const getRecipes = () => {
@@ -73,6 +80,13 @@ const getRecipes = () => {
     });
 };
 
+const ShareRecipe = () => {
+  if (isAuthenticated.value) {
+    router.push('/recipesSubmit');
+  } else {
+    router.push('/login');
+  }
+};
 </script>
 
 <style scoped>
