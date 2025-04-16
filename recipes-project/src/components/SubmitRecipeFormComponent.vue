@@ -27,6 +27,8 @@
               v-model="recipe.tag"
               label="Categoria"
               :items="tagOptions"
+              item-title="label"
+              item-value="value"
               required
               :rules="[rules.required]"
               density="comfortable"
@@ -95,11 +97,11 @@ const recipe = ref({
 });
 
 const tagOptions = ref([
-  'BREAKFAST',
-  'LUNCH',
-  'DINNER',
-  'VEGAN',
-  'VEGETARIAN'
+  { label: 'Café da manhã', value: 'BREAKFAST' },
+  { label: 'Almoço', value: 'LUNCH' },
+  { label: 'Jantar', value: 'DINNER' },
+  { label: 'Vegano', value: 'VEGAN' },
+  { label: 'Vegetariano', value: 'VEGETARIAN' }
 ]);
 
 const userId = localStorage.getItem('userId');
