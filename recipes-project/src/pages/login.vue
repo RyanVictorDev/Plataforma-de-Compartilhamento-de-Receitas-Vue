@@ -18,8 +18,10 @@
 
           <v-text-field
             v-model="password"
-            type="password"
+            :type="showPassword ? 'text' : 'password'"
             label="Senha"
+            :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+            @click:append-inner="showPassword = !showPassword"
             :rules="[rules.required]"
           />
 
@@ -51,15 +53,19 @@
 
           <v-text-field
             v-model="password"
-            type="password"
+            :type="showPassword ? 'text' : 'password'"
             label="Senha"
+            :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+            @click:append-inner="showPassword = !showPassword"
             :rules="[rules.required]"
           />
 
           <v-text-field
             v-model="passwordConfirm"
-            type="password"
+            :type="showPasswordConfirm ? 'text' : 'password'"
             label="Confirmar senha"
+            :append-inner-icon="showPasswordConfirm ? 'mdi-eye-off' : 'mdi-eye'"
+            @click:append-inner="showPasswordConfirm = !showPasswordConfirm"
             :rules="[rules.required, rules.matchPassword]"
           />
 
@@ -100,6 +106,8 @@ const name = ref('');
 const email = ref('');
 const password = ref('');
 const passwordConfirm = ref('');
+const showPassword = ref(false);
+const showPasswordConfirm = ref(false);
 
 const auth = async (email: string, password: string) => {
   try {

@@ -21,7 +21,7 @@
         <v-text-field
           class="search my-auto"
           v-model="search"
-          label="Search recipes..."
+          label="Pesquisar receitas..."
           prepend-inner-icon="mdi-magnify"
           :append-inner-icon="search ? 'mdi-close-circle' : ''"
           @click:append-inner="clearSearch"
@@ -124,7 +124,6 @@ const getRecipes = () => {
   api.get('recipe', { params: { search: search.value, page: page.value, tag: actualTag.value } })
     .then(response => {
       recipes.value = response.data.content;
-      console.log("AQUI PORRA", response.data.content);
     })
     .catch(error => {
       console.log(error);

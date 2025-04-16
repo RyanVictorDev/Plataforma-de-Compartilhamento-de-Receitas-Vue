@@ -134,20 +134,23 @@ const createRecipe = async () => {
       tag: ''
     };
 
+    router.push('/myRecipes')
   } catch (error) {
     snackbar.value = {
       show: true,
-      message: "Algo deu errado!",
+      message: "Algo deu errado! " + error.response.data.error,
       color: "error",
     };
     console.log(error)
-    router.push('/login')
+    if (error.response.status === 403) {
+      router.push('/login')
+    }
   }
 };
 </script>
 
 <style scoped>
 .form {
-  width: 80%;
+  width: 100%;
 }
 </style>

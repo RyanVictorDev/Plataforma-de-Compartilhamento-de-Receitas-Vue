@@ -165,8 +165,6 @@ onMounted(() => {
   userIdLocal.value = localStorage.getItem('userId');
   if (userIdLocal.value) {
     getFavorites(userIdLocal.value);
-  } else {
-    console.error('User ID não encontrado');
   }
 });
 

@@ -159,17 +159,16 @@ const updateRecipe = async () => {
   } catch (error) {
     snackbar.value = {
       show: true,
-      message: "Algo deu errado!",
+      message: "Erro ao atualizar! " + error.response.data.error,
       color: "error",
     };
-    console.log(error)
-    router.push('/login')
+    console.log(error.response.data.error)
   }
 };
 </script>
 
 <style scoped>
 .form {
-  width: 80%;
+  width: 100%;
 }
 </style>
