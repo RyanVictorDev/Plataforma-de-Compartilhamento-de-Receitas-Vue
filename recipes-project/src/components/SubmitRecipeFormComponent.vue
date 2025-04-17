@@ -79,6 +79,7 @@
 import { ref } from 'vue';
 import { api } from '@/boot/axios';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 
 const router = useRouter();
 
@@ -136,17 +137,25 @@ const createRecipe = async () => {
       tag: ''
     };
 
-    router.push('/myRecipes')
-  } catch (error) {
+    router.push('/myRecipes');
+  } catch (err) {
+    let message = "Algo deu errado!";
+
+    if (axios.isAxiosError(err) && err.response) {
+      message += " " + (err.response.data?.error ?? err.message);
+
+      if (err.response.status === 403) {
+        router.push('/login');
+      }
+    }
+
     snackbar.value = {
       show: true,
-      message: "Algo deu errado! " + error.response.data.error,
+      message,
       color: "error",
     };
-    console.log(error)
-    if (error.response.status === 403) {
-      router.push('/login')
-    }
+
+    console.log(err);
   }
 };
 </script>

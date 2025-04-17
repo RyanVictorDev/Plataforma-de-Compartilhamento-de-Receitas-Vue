@@ -78,6 +78,7 @@
 import { onMounted, ref } from 'vue';
 import { api } from '@/boot/axios';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 
 const props = defineProps({
   id: {
@@ -156,13 +157,20 @@ const updateRecipe = async () => {
       tag: ''
     };
 
-  } catch (error) {
+  } catch (err: unknown) {
+    let errorMessage = "Erro ao atualizar!";
+
+    if (axios.isAxiosError(err) && err.response) {
+      errorMessage += " " + (err.response.data?.error || err.message);
+    }
+
     snackbar.value = {
       show: true,
-      message: "Erro ao atualizar! " + error.response.data.error,
+      message: errorMessage,
       color: "error",
     };
-    console.log(error.response.data.error)
+
+    console.log(err);
   }
 };
 </script>
