@@ -15,7 +15,13 @@
         </div>
       </div>
 
-      <v-row>
+      <v-row v-if="isLoaning">
+        <v-col cols="12" sm="6" md="4" lg="3" v-for="i in 4" :key="i">
+          <v-skeleton-loader type="card" color="grey" />
+        </v-col>
+      </v-row>
+
+      <v-row v-else>
         <v-col cols="12">
           <p class="text-h5 font-weight-bold mb-2">Últimas receitas compartilhadas</p>
 
@@ -63,6 +69,7 @@ interface Recipe {
 const recipes = ref<Recipe[]>([]);
 const token = ref<string | null>(null)
 const isAuthenticated = computed(() => !!token.value)
+const isLoaning = ref(true);
 
 onMounted(() => {
   getRecipes();
@@ -71,12 +78,16 @@ onMounted(() => {
 });
 
 const getRecipes = () => {
+  isLoaning.value = true;
   api.get('recipe', { params: { page: 0 } })
     .then(response => {
       recipes.value = response.data.content;
     })
     .catch(error => {
       console.log(error);
+    })
+    .finally(() => {
+      isLoaning.value = false;
     });
 };
 

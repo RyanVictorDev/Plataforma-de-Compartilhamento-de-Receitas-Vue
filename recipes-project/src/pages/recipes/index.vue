@@ -34,7 +34,13 @@
       </v-col>
     </v-row>
 
-    <v-row>
+    <v-row v-if="isLoaning">
+      <v-col cols="12" sm="6" md="4" lg="3" v-for="i in 4" :key="i">
+        <v-skeleton-loader type="card" color="grey" />
+      </v-col>
+    </v-row>
+
+    <v-row v-else>
       <v-col v-for="recipe in recipes" :key="recipe.id" cols="12" sm="6" md="4" lg="3">
         <recipe-component
           :id="String(recipe.id)"
@@ -68,9 +74,11 @@ import { debounce } from 'lodash';
 
 const page = ref(0);
 const search = ref('');
+const isLoaning = ref(true);
 
 const debouncedSearch = debounce(() => {
   page.value = 0;
+  isLoaning.value = true;
   getRecipes();
 }, 500);
 
@@ -121,12 +129,16 @@ interface Recipe {
 const recipes = ref<Recipe[]>([]);
 
 const getRecipes = () => {
+  isLoaning.value = true;
   api.get('recipe', { params: { search: search.value, page: page.value, tag: actualTag.value } })
     .then(response => {
       recipes.value = response.data.content;
     })
     .catch(error => {
       console.log(error);
+    })
+    .finally(() => {
+      isLoaning.value = false;
     });
 };
 
