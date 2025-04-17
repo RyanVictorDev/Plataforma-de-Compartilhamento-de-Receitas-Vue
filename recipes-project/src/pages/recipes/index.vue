@@ -1,7 +1,12 @@
 <template>
-  <v-responsive class="px-12 py-6 fill-height mx-auto">
+  <v-responsive class="px-6 py-6 fill-height mx-auto">
     <v-row class="justify-center ga-2 mb-4">
-      <v-col cols="6" class="d-flex align-center justify-left flex-wrap ga-6">
+      <v-col
+        v-if="display.mdAndUp.value"
+        cols="12"
+        md="6"
+        class="d-flex align-center justify-left flex-wrap ga-6"
+      >
         <v-chip
           v-for="tag in tags"
           :key="tag"
@@ -17,7 +22,30 @@
         </v-chip>
       </v-col>
 
-      <v-col cols="5" class="d-flex align-center">
+      <v-col cols="2" v-else class="d-flex align-center">
+        <v-menu>
+          <template v-slot:activator="{ props }">
+            <v-btn
+              v-bind="props"
+              class="text-orange text-caption d-flex align-center w-auto"
+              rounded
+              variant="outlined"
+            >
+              <v-icon>mdi-filter</v-icon>
+            </v-btn>
+          </template>
+          <v-list class="bg-white">
+            <v-list-item v-for="tag in tags" :key="tag" @click="addTag(tag)">
+              <v-list-item-title>{{ translateTag(tag) }}</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="addTag('')">
+              <v-list-item-title>Todos</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </v-col>
+
+      <v-col cols="9" md="5" class="d-flex align-center">
         <v-text-field
           class="search my-auto"
           v-model="search"
@@ -71,6 +99,9 @@ import { api } from '@/boot/axios';
 import RecipeComponent from '@/components/RecipeComponent.vue';
 import { watch } from 'vue';
 import { debounce } from 'lodash';
+import { useDisplay } from 'vuetify';
+
+const display = useDisplay();
 
 const page = ref(0);
 const search = ref('');

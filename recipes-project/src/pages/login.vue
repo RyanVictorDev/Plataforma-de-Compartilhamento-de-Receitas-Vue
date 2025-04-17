@@ -144,7 +144,9 @@ const register = async (name: string, email: string, password:string) => {
 </script>
 
 <style scoped>
-.form{
-  width: 40%;
+.form {
+  max-width: 500px;
+  width: 100%;
 }
+
 </style>

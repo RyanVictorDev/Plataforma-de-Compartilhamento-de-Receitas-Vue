@@ -23,9 +23,9 @@
 
       <v-row v-else>
         <v-col cols="12">
-          <p class="text-h5 font-weight-bold mb-2">Últimas receitas compartilhadas</p>
+          <p class="text-h6 font-weight-bold mb-2">Últimas receitas compartilhadas</p>
 
-          <div class="scroll-wrapper">
+          <div v-if="display.mdAndUp.value" class="scroll-wrapper">
             <div class="scroll-content">
               <div
                 v-for="recipe in recipes"
@@ -42,6 +42,22 @@
               </div>
             </div>
           </div>
+
+          <div v-else class="d-flex flex-column ga-6">
+            <div
+              v-for="recipe in recipes"
+              :key="recipe.id"
+              class="scroll-item"
+            >
+              <recipe-component
+                :id="String(recipe.id)"
+                :user-id="String(recipe.user.id)"
+                :title="recipe.title"
+                :description="recipe.description"
+                :tag="recipe.tag"
+              />
+            </div>
+          </div>
         </v-col>
       </v-row>
     </v-responsive>
@@ -53,6 +69,9 @@ import { computed, onMounted, ref } from 'vue';
 import { api } from '@/boot/axios';
 import RecipeComponent from './RecipeComponent.vue';
 import { useRouter } from 'vue-router';
+import { useDisplay } from 'vuetify';
+
+const display = useDisplay();
 
 const router = useRouter();
 
@@ -110,12 +129,36 @@ const ShareRecipe = () => {
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
-  justify-content: left;
+  justify-content: flex-start;
+  padding: 1rem;
 }
 
-.bannerContent{
+.bannerContent {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   max-width: 55%;
-  max-height: 30%;
+}
+
+@media (max-width: 960px) {
+  .bannerContent {
+    max-width: 100%;
+    margin-left: 0;
+    padding: 1rem;
+    text-align: center;
+    align-items: center;
+  }
+
+  .banner {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .bannerContent .d-flex {
+    flex-direction: column;
+    gap: 1rem;
+  }
 }
 
 .scroll-wrapper {
@@ -145,6 +188,7 @@ const ShareRecipe = () => {
 
 .scroll-content {
   display: flex;
+  gap: 1rem;
 }
 
 .scroll-item {
